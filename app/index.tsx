@@ -1,4 +1,4 @@
-import { Pressable, View, StyleSheet } from "react-native";
+import { Pressable, View, StyleSheet, Text } from "react-native";
 import { useState } from "react";
 import Entypo from "@expo/vector-icons/Entypo";
 import {
@@ -7,21 +7,38 @@ import {
 } from "react-native-responsive-screen";
 
 export default function Index() {
-  const [ispressed, setispressed] = useState(false);
-  function Flash() {
-    ispressed ? setispressed(false) : setispressed(true);
+  const [isPressed, setIsPressed] = useState(false);
+  const [isPressed2, setIsPressed2] = useState(false);
+
+  function toggleFlash() {
+    setIsPressed((prev) => !prev);
   }
+
+  function toggleSOS() {
+    setIsPressed2((prev) => !prev);
+  }
+
   return (
     <View style={styles.background}>
       <Pressable
-        style={({ pressed }) => [styles.button, pressed && {}]}
-        onPress={Flash}
+        style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+        onPress={toggleFlash}
       >
         <Entypo
           name="flash"
-          size={wp(10)}
-          color={ispressed ? "#ffffff" : "#28282B"}
+          size={wp(30)}
+          color={isPressed ? "#ffffff" : "#282828"}
         />
+      </Pressable>
+      <Pressable
+        style={({ pressed }) => [
+          styles.SOSbutton,
+          pressed && styles.pressed,
+          { backgroundColor: isPressed2 ? "#ffffff" : "#343434" },
+        ]}
+        onPress={toggleSOS}
+      >
+        <Text style={styles.SOSText}>S.O.S</Text>
       </Pressable>
     </View>
   );
@@ -35,12 +52,27 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
   },
   button: {
-    backgroundColor: "rgba(17, 17, 17, 0.7)",
-    height: hp(30),
-    width: hp(30),
-    borderRadius: hp(15),
+    backgroundColor: "#343434",
+    height: hp(25),
+    width: hp(25),
+    borderRadius: hp(13),
     justifyContent: "center",
     alignItems: "center",
-    opacity: 0.7,
+    opacity: 0.4,
+  },
+  pressed: {
+    opacity: 0.6,
+  },
+  SOSText: {
+    color: "white",
+  },
+  SOSbutton: {
+    marginTop: hp(3),
+    height: wp(11),
+    width: wp(22),
+    borderRadius: hp(13),
+    justifyContent: "center",
+    alignItems: "center",
+    opacity: 0.4,
   },
 });
