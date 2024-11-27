@@ -1,3 +1,7 @@
+//The UI is Complete
+//Issue: The Flashlight is not working
+//Will Try to make it work in the future
+
 import { Pressable, View, StyleSheet, Text } from "react-native";
 import { useState } from "react";
 // Importing icon library for the flash icon
